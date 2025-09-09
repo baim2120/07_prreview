@@ -6,7 +6,7 @@ import ProductAddDialog from './components/products/ProductAddDialog.vue'
 import ProductEditDialog from './components/products/ProductEditDialog.vue'
 import ProductDetailsDialog from './components/products/ProductDetailsDialog.vue'
 import ProductDeleteDialog from './components/products/ProductDeleteDialog.vue'
-import { addProductToCart, fetchProducts, addProduct, updateProduct, deleteProduct, getCart } from './api.js'
+import { addProductToCart, fetchProducts, addProduct, updateProduct, deleteProduct } from './api.js'
 
 const products = ref([])
 const loading = ref(false)

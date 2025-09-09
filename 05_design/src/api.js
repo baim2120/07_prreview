@@ -46,7 +46,10 @@ export async function addProductToCart(product) {
 
 export async function getCart() {
 	const res = await fetch(`${API_BASE}/cart/`)
-	return res;
+	if (!res.ok) {
+		throw new Error('Failed to fetch cart')
+	}
+	return await res.json()
 }
 
 export async function removeProductFromCart(cartItem) {

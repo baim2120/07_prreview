@@ -24,8 +24,7 @@ const props = defineProps({
 const cart = ref([])
 
 async function fetchCart() {
-    const res = await getCart()
-    cart.value = await res.json()
+    cart.value = await getCart()
 }
 
 async function removeOne(item) {
@@ -33,7 +32,7 @@ async function removeOne(item) {
         await removeProductFromCart(item)
         await fetchCart()
     } catch (e) {
-        // Optionally show error
++        console.error('Failed to remove item from cart:', e)
     }
 }
 
