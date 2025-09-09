@@ -1,11 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import ProductList from './components/products/ProductList.vue'
+import CartList from './components/products/CartList.vue'
 import ProductAddDialog from './components/products/ProductAddDialog.vue'
 import ProductEditDialog from './components/products/ProductEditDialog.vue'
 import ProductDetailsDialog from './components/products/ProductDetailsDialog.vue'
 import ProductDeleteDialog from './components/products/ProductDeleteDialog.vue'
-import { fetchProducts, addProduct, updateProduct, deleteProduct } from './api.js'
+import { addProductToCart, fetchProducts, addProduct, updateProduct, deleteProduct, getCart } from './api.js'
 
 const products = ref([])
 const loading = ref(false)
@@ -20,6 +21,17 @@ async function loadProducts() {
     error.value = e.message
   } finally {
     loading.value = false
+  }
+}
+
+const cartRefreshKey = ref(0)
+async function handleAddToCart(product) {
+  try {
+    await addProductToCart(product)
+    cartRefreshKey.value++
+    await loadProducts()
+  } catch (e) {
+    error.value = e.response?.data?.detail || e.message
   }
 }
 
@@ -84,7 +96,8 @@ async function handleDelete() {
     <div v-if="loading">Loading...</div>
     <div v-if="error" style="color: red;">{{ error }}</div>
     <ProductList :products="products" @add-product="handleAddProduct" @edit-product="handleEditProduct"
-      @view-product="handleViewProduct" @delete-product="handleDeleteProduct" />
+      @view-product="handleViewProduct" @delete-product="handleDeleteProduct" @add-to-cart="handleAddToCart" />
+    <CartList :refreshKey="cartRefreshKey" />
 
     <ProductAddDialog v-if="showAdd" @add="handleAdd" @close="showAdd = false" />
     <ProductEditDialog v-if="showEdit" :product="selectedProduct" @edit="handleEdit" @close="showEdit = false" />

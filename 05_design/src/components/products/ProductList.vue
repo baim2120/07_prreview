@@ -12,6 +12,7 @@
                     <th>Price</th>
                     <th>Stock</th>
                     <th>Actions</th>
+                    <th>Add to Cart</th>
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +25,11 @@
                         <button @click="$emit('view-product', product)">Details</button>
                         <button @click="$emit('edit-product', product)">Edit</button>
                         <button @click="$emit('delete-product', product)">Delete</button>
+                    </td>
+                    <td>
+                        <button @click="$emit('add-to-cart', product)" :disabled="product.stock < 1" title="Add to cart">
+                            <span style="font-size:1.3em;">+</span>
+                        </button>
                     </td>
                 </tr>
             </tbody>
