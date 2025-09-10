@@ -103,6 +103,7 @@ async function handleDelete() {
         @edit-product="handleEditProduct"
         @view-product="handleViewProduct"
         @delete-product="handleDeleteProduct"
+        @add-to-cart="handleAddToCart"
       />
       <CartList :refreshKey="cartRefreshKey" />
       <ProductAddDialog v-if="showAdd" @add="handleAdd" @close="showAdd = false" />
