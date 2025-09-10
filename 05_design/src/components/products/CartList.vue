@@ -8,7 +8,7 @@
             <div v-for="item in cart" :key="item.id" class="cart-item">
                 <div class="item-info">
                     <div class="item-name">{{ item.name }}</div>
-                    <div class="item-price">{{ item.price.toLocaleString() }} Ft</div>
+                    <div class="item-price">${{ item.price.toLocaleString() }}</div>
                 </div>
                 <div class="item-quantity">
                     <button class="quantity-btn" @click="removeOne(item)" :disabled="item.quantity < 1">
@@ -19,7 +19,7 @@
             </div>
             <div class="cart-total">
                 <span>Total:</span>
-                <span>{{ totalPrice.toLocaleString() }} Ft</span>
+                <span>${{ totalPrice.toLocaleString() }}</span>
             </div>
         </div>
         <div v-else class="empty-cart">

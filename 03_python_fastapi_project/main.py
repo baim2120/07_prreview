@@ -192,15 +192,20 @@ async def remove_from_cart(cart_item_id: int, db: AsyncSession = Depends(get_db)
     db_product: Product = (await db.execute(select(Product).filter(Product.id == db_cartitem.product_id))).scalars().first()
     if db_product is None:
         raise HTTPException(status_code=404, detail="Product not found")
+    
+    # Store the response before we potentially delete the cart item
+    response = cartitem_to_response(db_cartitem)
+    
     db_cartitem.quantity -= 1
     db_product.stock += 1
+    
     if db_cartitem.quantity <= 0:
         await db.delete(db_cartitem)
-        await db.commit()
-        return cartitem_to_response(db_cartitem)
+    
     await db.commit()
-    await db.refresh(db_cartitem)
-    return cartitem_to_response(db_cartitem)
+    
+    # Return the stored response
+    return response
 
 
 @app.get("/cart/", response_model=List[CartItemResponse])
