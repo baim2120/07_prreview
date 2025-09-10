@@ -92,19 +92,59 @@ async function handleDelete() {
 </script>
 
 <template>
-  <div>
-    <div v-if="loading">Loading...</div>
-    <div v-if="error" style="color: red;">{{ error }}</div>
-    <ProductList :products="products" @add-product="handleAddProduct" @edit-product="handleEditProduct"
-      @view-product="handleViewProduct" @delete-product="handleDeleteProduct" @add-to-cart="handleAddToCart" />
-    <CartList :refreshKey="cartRefreshKey" />
-
-    <ProductAddDialog v-if="showAdd" @add="handleAdd" @close="showAdd = false" />
-    <ProductEditDialog v-if="showEdit" :product="selectedProduct" @edit="handleEdit" @close="showEdit = false" />
-    <ProductDetailsDialog v-if="showDetails" :product="selectedProduct" @close="showDetails = false" />
-    <ProductDeleteDialog v-if="showDelete" :product="selectedProduct" @delete="handleDelete"
-      @close="showDelete = false" />
+  <div class="app-container">
+    <header class="app-header">
+      <h1>Product Management</h1>
+    </header>
+    <main class="app-main">
+      <ProductList
+        :products="products"
+        @add-product="handleAddProduct"
+        @edit-product="handleEditProduct"
+        @view-product="handleViewProduct"
+        @delete-product="handleDeleteProduct"
+      />
+      <CartList :refreshKey="cartRefreshKey" />
+      <ProductAddDialog v-if="showAdd" @add="handleAdd" @close="showAdd = false" />
+      <ProductEditDialog v-if="showEdit" :product="selectedProduct" @edit="handleEdit" @close="showEdit = false" />
+      <ProductDetailsDialog v-if="showDetails" :product="selectedProduct" @close="showDetails = false" />
+      <ProductDeleteDialog v-if="showDelete" :product="selectedProduct" @delete="handleDelete" @close="showDelete = false" />
+      <div v-if="loading" class="loading">Loading...</div>
+      <div v-if="error" class="error">{{ error }}</div>
+    </main>
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.app-container {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+.app-header {
+  background: var(--surface);
+  box-shadow: 0 2px 8px rgba(30,41,59,0.04);
+  padding: 2rem 2rem 1rem 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.app-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--primary);
+}
+.app-main {
+  flex: 1;
+  max-width: 900px;
+  margin: 2rem auto;
+  width: 100%;
+}
+.loading {
+  color: var(--text-light);
+  margin-top: 1rem;
+}
+.error {
+  color: var(--danger);
+  margin-top: 1rem;
+}
+</style>
