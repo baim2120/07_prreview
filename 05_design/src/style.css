@@ -1,12 +1,18 @@
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger: #ef4444;
+  --danger-hover: #dc2626;
+  --bg: #f6f8fa;
+  --surface: #fff;
+  --border: #e5e7eb;
+  --text: #1e293b;
+  --text-light: #64748b;
+  --radius: 12px;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,29 +29,98 @@ a:hover {
   color: #535bf2;
 }
 
+
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--bg);
+}
+
+
+h1, h2, h3, h4, h5 {
+  font-weight: 600;
+  color: var(--text);
+  margin: 0 0 0.5em 0;
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 2.2rem;
 }
 
+h2 {
+  font-size: 1.4rem;
+}
+
+
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  border-radius: var(--radius);
+  border: 1px solid var(--primary);
+  background: var(--primary);
+  color: #fff;
+  padding: 0.5em 1.5em;
+  font-size: 1rem;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background 0.2s, border 0.2s;
+  outline: none;
+}
+button:hover {
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+button.danger {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+button.danger:hover {
+  background: var(--danger-hover);
+  border-color: var(--danger-hover);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.04);
+}
+th, td {
+  padding: 1em;
+  text-align: left;
+}
+th {
+  background: var(--bg);
+  color: var(--text-light);
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  border-bottom: 1px solid var(--border);
+}
+tr:last-child td {
+  border-bottom: none;
+}
+
+input, textarea {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5em 1em;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+  color: var(--text);
+  margin-bottom: 1em;
+  width: 100%;
+  box-sizing: border-box;
+}
+label {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-bottom: 0.2em;
+  display: block;
 }
 
 button:hover {
