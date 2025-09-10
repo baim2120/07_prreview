@@ -4,9 +4,9 @@
             <div class="search-section">
                 <div class="search-input">
                     <span class="search-icon">🔍</span>
-                    <input 
-                        type="text" 
-                        placeholder="Search products..." 
+                    <input
+                        type="text"
+                        placeholder="Search products..."
                         v-model="searchQuery"
                     />
                 </div>
@@ -38,6 +38,9 @@
                     <button class="action-btn delete" @click="$emit('delete-product', product)" title="Delete">
                         <span class="icon">🗑️</span>
                     </button>
+                    <button class="action-btn" @click="$emit('add-to-cart', product)" :disabled="product.stock < 1" title="Add to cart">
+                      <span class="icon">➕</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -59,12 +62,12 @@ const searchQuery = ref('')
 
 const filteredProducts = computed(() => {
     if (!searchQuery.value) return props.products
-    
+
     const query = searchQuery.value.toLowerCase()
     return props.products.filter(product => {
         return (
             product.name.toLowerCase().includes(query) ||
-            product.description.toLowerCase().includes(query) ||
+            product.description?.toLowerCase().includes(query) ||
             product.price.toString().includes(query) ||
             product.stock.toString().includes(query)
         )

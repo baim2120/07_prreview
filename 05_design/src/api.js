@@ -34,3 +34,29 @@ export async function deleteProduct(id) {
 	if (!res.ok) throw new Error('Failed to delete product')
 	return true
 }
+
+export async function addProductToCart(product) {
+	const res = await fetch(`${API_BASE}/cart/add/${product.id}`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' }
+	})
+	if (!res.ok) throw new Error('Failed to add product to cart')
+	return await res.json()
+}
+
+export async function getCart() {
+	const res = await fetch(`${API_BASE}/cart/`)
+	if (!res.ok) {
+		throw new Error('Failed to fetch cart')
+	}
+	return await res.json()
+}
+
+export async function removeProductFromCart(cartItem) {
+	const res = await fetch(`${API_BASE}/cart/remove/${cartItem.id}`, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' }
+	})
+	if (!res.ok) throw new Error('Failed to remove product from cart')
+	return await res.json()
+}
