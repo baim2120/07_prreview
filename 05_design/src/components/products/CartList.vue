@@ -20,6 +20,7 @@ const props = defineProps({
         default: 0
     }
 })
+const emit = defineEmits(['cart-updated'])
 
 const cart = ref([])
 
@@ -31,8 +32,9 @@ async function removeOne(item) {
     try {
         await removeProductFromCart(item)
         await fetchCart()
+        emit('cart-updated')
     } catch (e) {
-+        console.error('Failed to remove item from cart:', e)
+        console.error('Failed to remove item from cart:', e)
     }
 }
 

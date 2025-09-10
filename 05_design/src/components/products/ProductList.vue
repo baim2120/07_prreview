@@ -38,8 +38,8 @@
                     <button class="action-btn delete" @click="$emit('delete-product', product)" title="Delete">
                         <span class="icon">🗑️</span>
                     </button>
-                    <button @click="$emit('add-to-cart', product)" :disabled="product.stock < 1" title="Add to cart">
-                      <span style="font-size:1.3em;">+</span>
+                    <button class="action-btn" @click="$emit('add-to-cart', product)" :disabled="product.stock < 1" title="Add to cart">
+                      <span class="icon">➕</span>
                     </button>
                 </div>
             </div>

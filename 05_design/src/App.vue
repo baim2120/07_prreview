@@ -67,6 +67,7 @@ async function handleEdit(product) {
   try {
     await updateProduct(selectedProduct.value.id, { name, description, price, stock })
     await loadProducts()
+    cartRefreshKey.value++ // Refresh cart to show updated product info
   } catch (e) {
     error.value = e.message
   }
@@ -105,7 +106,7 @@ async function handleDelete() {
         @delete-product="handleDeleteProduct"
         @add-to-cart="handleAddToCart"
       />
-      <CartList :refreshKey="cartRefreshKey" />
+  <CartList :refreshKey="cartRefreshKey" @cart-updated="loadProducts" />
       <ProductAddDialog v-if="showAdd" @add="handleAdd" @close="showAdd = false" />
       <ProductEditDialog v-if="showEdit" :product="selectedProduct" @edit="handleEdit" @close="showEdit = false" />
       <ProductDetailsDialog v-if="showDetails" :product="selectedProduct" @close="showDetails = false" />
